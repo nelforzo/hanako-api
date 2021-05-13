@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'this is the web root for hanako-api. the stuff you\'re looking for is under /api. go have fun.';
 });
