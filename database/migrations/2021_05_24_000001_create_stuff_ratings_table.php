@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStuffTagsTable extends Migration
+class CreateStuffRatingsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'stuff_tags';
+    public $tableName = 'stuff_ratings';
 
     /**
      * Run the migrations.
-     * @table stuff_tags
+     * @table stuff_ratings
      *
      * @return void
      */
@@ -23,11 +23,9 @@ class CreateStuffTagsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->integer('stuff_id');
-            $table->string('tag', 50)->default('');
-
-            $table->index(["user_id"], 'index_user_id');
+            $table->integer('stuff_id')->nullable()->default(null);
+            $table->integer('rating')->nullable()->default(null)->comment('item rating from 0 to 10');
+            $table->string('comment', 100)->nullable()->default(null);
 
             $table->index(["stuff_id"], 'index_stuff_id');
             $table->nullableTimestamps();

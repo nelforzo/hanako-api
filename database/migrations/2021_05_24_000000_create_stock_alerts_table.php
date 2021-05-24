@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStuffRatingsTable extends Migration
+class CreateStockAlertsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'stuff_ratings';
+    public $tableName = 'stock_alerts';
 
     /**
      * Run the migrations.
-     * @table stuff_ratings
+     * @table stock_alerts
      *
      * @return void
      */
@@ -23,9 +23,9 @@ class CreateStuffRatingsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->integer('stuff_id')->nullable()->default(null);
-            $table->integer('rating')->nullable()->default(null);
-            $table->integer('comment')->nullable()->default(null);
+            $table->integer('stuff_id');
+            $table->integer('minimum_level');
+            $table->string('comment', 100)->nullable()->default(null);
 
             $table->index(["stuff_id"], 'index_stuff_id');
             $table->nullableTimestamps();

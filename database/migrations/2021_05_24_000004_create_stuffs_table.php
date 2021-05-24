@@ -24,11 +24,11 @@ class CreateStuffsTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->integer('name');
-            $table->integer('description')->nullable()->default(null);
-            $table->integer('brand')->nullable()->default(null);
-            $table->integer('comment')->nullable()->default(null);
-            $table->integer('barcode')->nullable()->default(null);
+            $table->string('name', 50);
+            $table->string('description')->nullable()->default(null);
+            $table->string('brand', 50)->nullable()->default(null);
+            $table->string('comment', 100)->nullable()->default(null);
+            $table->string('barcode', 50)->nullable()->default(null);
             $table->string('uuid', 50)->default('')->comment('the system unique identifier used for qr code urls');
             $table->integer('units_per_package');
             $table->integer('mililiters_per_package')->nullable()->default(null);
