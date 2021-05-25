@@ -39,7 +39,14 @@ class UserService {
 
     if ($user != null) {
       if (Hash::check($oldPassword, $user->password_hash)) {
+        if ($newPassword == $newPasswordConfirmation) {
+          $user->password_hash = Hash::make($newPassword);
+          
+          return $user->save();
+        }
+        else return config('user_service.new_password_mismatch');
       }
+      else return config('user_service.old_password_mismatch');
     }
     else return config('user_service.invalid_user');
   }
