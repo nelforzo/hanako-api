@@ -45,8 +45,8 @@ class StuffService {
     return $stuff->save();
   }
 
-  public function deleteStuff() {
-
+  public function deleteStuff($id) {
+    return DB::table('stuff')->where('id', $id)->delete();
   }
 
   public function gen_uuid() {
