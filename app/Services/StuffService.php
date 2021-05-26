@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Stuff;
-use App\Models\Users;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -46,7 +45,7 @@ class StuffService {
   }
 
   public function deleteStuff($id) {
-    return DB::table('stuff')->where('id', $id)->delete();
+    return Stuff::find($id)->delete();
   }
 
   public function gen_uuid() {
