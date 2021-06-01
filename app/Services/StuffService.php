@@ -3,49 +3,55 @@
 namespace App\Services;
 
 use App\Models\Stuff;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class StuffService {
-  public function addStuff($userId, $name, $description, $brand, $comment, $barcode, $unitsPerPackage, $mililitersPerPackage, $expirationDate, $openedDate, $consumeBeforeDays) {
+  public function createStuff(Request $request) {
+
+    //validation
+    $validated = $request->validate([
+      'user_id' => 'required',
+      'name' => 'required',
+      'units_per_package' => 'required'
+    ]);
+
     $stuff = new Stuff();
 
-    $stuff->user_id = $userId;
-    $stuff->name = $name;
-    $stuff->description = $description;
-    $stuff->brand = $brand;
-    $stuff->comment = $comment;
-    $stuff->$barcode;
+    $stuff->user_id = $request->input('user_id');
+    $stuff->name = $request->input('name');
+    $stuff->description = $request->input('description');
+    $stuff->brand = $request->input('brand');
+    $stuff->comment = $request->input('comment');
+    $stuff->barcode = $request->input('barcode');
     $stuff->uuid = $this->gen_uuid();
-    $stuff->units_per_package = $unitsPerPackage;
-    $stuff->mililiters_per_package = $mililitersPerPackage;
-    $stuff->expiration_date = $expirationDate;
-    $stuff->opened_date = $openedDate;
-    $stuff->consume_before_days = $consumeBeforeDays;
+    $stuff->units_per_package = $request->input('units_per_package');
+    $stuff->mililiters_per_package = $request->input('mililiters_per_package');
+    $stuff->expiration_date = $request->input('expiration_date');
+    $stuff->opened_date = $request->input('opened_date');
+    $stuff->consume_before_days = $request->input('consume_before_days');
 
     $stuff->save();
 
     return $stuff->id;
   }
 
-  public function updateStuff($id, $name, $description, $brand, $comment, $unitsPerPackage, $mililitersPerPackage, $expirationDate, $openedDate, $consumeBeforeDays) {
-    $stuff = Stuff::find($id);
+  public function updateStuff(Request $request, $id) {
 
-    $stuff->name = $name;
-    $stuff->description = $description;
-    $stuff->brand = $brand;
-    $stuff->comment = $comment;
-    $stuff->units_per_package = $unitsPerPackage;
-    $stuff->mililiters_per_package = $mililitersPerPackage;
-    $stuff->expiration_date = $expirationDate;
-    $stuff->opened_date = $openedDate;
-    $stuff->consume_before_days = $consumeBeforeDays;
+    //validation
+    $validated = $request->validate([
+      'name' => 'required',
+      'units_per_package' => 'required'
+    ]);
 
-    return $stuff->save();
+    $stuff = Stuff::findOrFail($id);
+
+    return $stuff->update($request->all());
   }
 
   public function deleteStuff($id) {
-    return Stuff::find($id)->delete();
+    return DB::table('stuff')->where('id', $id)->delete();
   }
 
   public function gen_uuid() {
