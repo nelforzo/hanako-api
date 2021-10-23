@@ -34,7 +34,7 @@ class StuffService {
 
     $stuff->save();
 
-    return $stuff->id;
+    return $stuff;
   }
 
   public function updateStuff(Request $request, $id) {
@@ -47,7 +47,9 @@ class StuffService {
 
     $stuff = Stuff::findOrFail($id);
 
-    return $stuff->update($request->all());
+    $stuff->update($request->all());
+
+    return $stuff;
   }
 
   public function deleteStuff($id) {

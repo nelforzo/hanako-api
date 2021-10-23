@@ -15,19 +15,24 @@ class UserController extends Controller
         $this->userService = new UserService();
     }
 
-    public function createUser(Request $request) {
-        return $this->userService->createUser($request);
+    public function new(Request $request) {
+        return view('users/new');
     }
 
-    public function updateUser(Request $request, $id) {
+    public function create(Request $request) {
+        $this->userService->createUser($request);
+        return view('users/new-complete');
+    }
+
+    public function update(Request $request, $id) {
         return $this->userService->updateUser($request, $id);
     }
 
-    public function changeUserPassword(Request $request, $id) {
+    public function changePassword(Request $request, $id) {
         return $this->userService->changeUserPassword($request, $id);
     }
 
-    public function deleteUser($id) {
+    public function delete($id) {
         return $this->userService->deleteUser($id);
     }
 }
