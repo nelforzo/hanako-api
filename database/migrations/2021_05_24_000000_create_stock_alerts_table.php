@@ -23,11 +23,13 @@ class CreateStockAlertsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->integer('stuff_id');
-            $table->integer('minimum_level');
+            $table->integer('user_id');
+            $table->integer('category_id');
+            $table->integer('minimum_stock_units');
             $table->string('comment', 100)->nullable()->default(null);
 
-            $table->index(["stuff_id"], 'index_stuff_id');
+            $table->index(["id"], 'index_id');
+            $table->index(["category_id"], 'index_category_id');
             $table->nullableTimestamps();
         });
     }

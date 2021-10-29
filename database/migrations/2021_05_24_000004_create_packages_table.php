@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStuffsTable extends Migration
+class CreatePackagesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'stuffs';
+    public $tableName = 'packages';
 
     /**
      * Run the migrations.
@@ -24,6 +24,7 @@ class CreateStuffsTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('user_id');
+            $table->integer('category_id');
             $table->string('name', 50);
             $table->string('description')->nullable()->default(null);
             $table->string('brand', 50)->nullable()->default(null);
@@ -36,7 +37,9 @@ class CreateStuffsTable extends Migration
             $table->timestamp('opened_date')->nullable()->default(null)->comment('the item\'s opened date');
             $table->integer('consume_before_days')->nullable()->default(null)->comment('the maximum number of days the item can be used after opening');
 
+            $table->index(["id"], 'index_id');
             $table->index(["user_id"], 'index_user_id');
+            $table->index(["category_id"], 'index_category_id');
             $table->nullableTimestamps();
         });
     }
