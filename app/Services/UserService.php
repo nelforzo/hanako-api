@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class UserService {
   public function createUser(Request $request) {
 
     //validation
-    $validated = $request->validate([
+    $validator = Validator::make($request->all(), [
       'first_name' => 'required',
       'last_name' => 'required',
       'first_name_kana' => 'required',
@@ -21,6 +22,10 @@ class UserService {
       'password' => 'required|same:password_confirmation',
       'password_confirmation' => 'required'
     ]);
+
+    if ($validator->fails()) {
+      return $validator->errors();
+    }
 
     $user = new Users();
     

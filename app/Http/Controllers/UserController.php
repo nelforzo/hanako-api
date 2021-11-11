@@ -15,16 +15,11 @@ class UserController extends Controller
         $this->userService = new UserService();
     }
 
-    public function new(Request $request) {
-        return view('users/new');
+    public function createUser(Request $request) {
+        return $this->userService->createUser($request);
     }
 
-    public function create(Request $request) {
-        $this->userService->createUser($request);
-        return view('users/new-complete');
-    }
-
-    public function update(Request $request, $id) {
+    public function updateUser(Request $request, $id) {
         return $this->userService->updateUser($request, $id);
     }
 

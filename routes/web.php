@@ -17,7 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return 'this is the web root for hanako-api. the stuff you\'re looking for is under /api. go have fun.';
 });
-
-Route::get('/users/new', [UserController::class, 'new']);
-
-Route::post('/users/create', [UserController::class, 'create']);
