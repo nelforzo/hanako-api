@@ -24,6 +24,7 @@ Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
 
 //packages controller routes
 Route::get('/packages', [PackagesController::class, 'getPackages']);
-Route::post('/packages', [PackagesController::class, 'addPackage']);
+Route::post('/packages/{uuid}', [PackagesController::class, 'getPackageByUUID']);
+Route::post('/packages', [PackagesController::class, 'createPackage']);
 Route::put('/packages/{id}', [PackagesController::class, 'updatePackage']);
 Route::delete('/packages/{id}', [PackagesController::class, 'deletePackage']);

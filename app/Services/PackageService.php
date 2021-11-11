@@ -17,7 +17,13 @@ class PackageService {
     return $packages->get();
   }
 
-  public function addPackage(Request $request) {
+  public function getPackageByUUID(Request $request, $uuid) {
+    return DB::table('packages')
+    ->where('uuid', $uuid)
+    ->where('user_id', $request->input('user_id'))->first();
+  }
+
+  public function createPackage(Request $request) {
 
     //validation
     $validated = $request->validate([

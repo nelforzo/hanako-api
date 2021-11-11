@@ -19,8 +19,13 @@ class PackagesController extends Controller
         return response()->json($packages);
     }
 
-    public function addPackage(Request $request) {
-        return $this->packageService->addPackage($request);
+    public function getPackageByUUID(Request $request, $uuid) {
+        $package = $this->packageService->getPackageByUUID($request, $uuid);
+        return response()->json($package);
+    }
+
+    public function createPackage(Request $request) {
+        return $this->packageService->createPackage($request);
     }
 
     public function updatePackage(Request $request, $id) {
