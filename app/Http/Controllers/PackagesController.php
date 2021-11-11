@@ -14,6 +14,11 @@ class PackagesController extends Controller
         $this->packageService = new PackageService();
     }
 
+    public function getPackages(Request $request) {
+        $packages = $this->packageService->getPackages($request);
+        return response()->json($packages);
+    }
+
     public function addPackage(Request $request) {
         return $this->packageService->addPackage($request);
     }

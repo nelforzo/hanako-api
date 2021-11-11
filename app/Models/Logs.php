@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StuffTags extends Model
+class Logs extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'operation',
         'stuff_id',
-        'tag'
+        'user_id'
     ];
 }

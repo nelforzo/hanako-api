@@ -22,7 +22,8 @@ Route::put('/users/{id}', [UserController::class, 'updateUser']);
 Route::put('/users/{id}/change_password', [UserController::class, 'changeUserPassword']);
 Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
 
-//stuff controller routes
+//packages controller routes
+Route::get('/packages', [PackagesController::class, 'getPackages']);
 Route::post('/packages', [PackagesController::class, 'addPackage']);
 Route::put('/packages/{id}', [PackagesController::class, 'updatePackage']);
 Route::delete('/packages/{id}', [PackagesController::class, 'deletePackage']);

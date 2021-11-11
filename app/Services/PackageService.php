@@ -8,6 +8,15 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class PackageService {
+
+  public function getPackages(Request $request) {
+    $packages = DB::table('packages')->where('user_id', $request->input('user_id'));
+    if (!empty($request->input('category_id'))) {
+      $packages->where('category_id', $request->input('category_id'));
+    }
+    return $packages->get();
+  }
+
   public function addPackage(Request $request) {
 
     //validation
