@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStuffLogsTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'stuff_logs';
+    public $tableName = 'tags';
 
     /**
      * Run the migrations.
-     * @table stuff_logs
+     * @table stuff_tags
      *
      * @return void
      */
@@ -23,13 +23,13 @@ class CreateStuffLogsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->string('operation', 50)->default('');
             $table->integer('user_id');
-            $table->integer('stuff_id');
+            $table->integer('category_id');
+            $table->string('body', 50)->default('')->comment('tag string');
 
             $table->index(["user_id"], 'index_user_id');
 
-            $table->index(["stuff_id"], 'index_stuff_id');
+            $table->index(["category_id"], 'index_category_id');
             $table->nullableTimestamps();
         });
     }

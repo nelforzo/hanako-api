@@ -10,8 +10,9 @@ class StockAlerts extends Model
     use HasFactory;
 
     protected $fillable = [
-        'stuff_id',
-        'minumum_level',
+        'user_id',
+        'category_id',
+        'minimum_stock_units',
         'comment'
     ];
 }

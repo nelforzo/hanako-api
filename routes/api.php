@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\StuffController;
+use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +22,9 @@ Route::put('/users/{id}', [UserController::class, 'updateUser']);
 Route::put('/users/{id}/change_password', [UserController::class, 'changeUserPassword']);
 Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
 
-//stuff controller routes
-Route::post('/stuff', [StuffController::class, 'createStuff']);
-Route::put('/stuff/{id}', [StuffController::class, 'updateStuff']);
-Route::delete('/stuff/{id}', [StuffController::class, 'deleteStuff']);
+//packages controller routes
+Route::get('/packages', [PackagesController::class, 'getPackages']);
+Route::post('/packages/{uuid}', [PackagesController::class, 'getPackageByUUID']);
+Route::post('/packages', [PackagesController::class, 'createPackage']);
+Route::put('/packages/{id}', [PackagesController::class, 'updatePackage']);
+Route::delete('/packages/{id}', [PackagesController::class, 'deletePackage']);

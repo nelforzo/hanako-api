@@ -23,11 +23,11 @@ class UserController extends Controller
         return $this->userService->updateUser($request, $id);
     }
 
-    public function changeUserPassword(Request $request, $id) {
+    public function changePassword(Request $request, $id) {
         return $this->userService->changeUserPassword($request, $id);
     }
 
-    public function deleteUser($id) {
+    public function delete($id) {
         return $this->userService->deleteUser($id);
     }
 }
