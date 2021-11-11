@@ -11,7 +11,7 @@ class Logs extends Model
 
     protected $fillable = [
         'operation',
-        'stuff_id',
+        'package_id',
         'user_id'
     ];
 }
