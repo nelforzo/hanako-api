@@ -6,6 +6,7 @@ use App\Models\Packages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PackageService {
 
@@ -26,12 +27,16 @@ class PackageService {
   public function createPackage(Request $request) {
 
     //validation
-    $validated = $request->validate([
+    $validator = Validator::make($request->all(), [
       'user_id' => 'required',
       'category_id' => 'required',
       'name' => 'required',
       'units_per_package' => 'required'
     ]);
+
+    if ($validator->fails()) {
+      return $validator->errors();
+    }
 
     $package = new Packages();
 
@@ -57,10 +62,14 @@ class PackageService {
   public function updatePackage(Request $request, $id) {
 
     //validation
-    $validated = $request->validate([
+    $validator = Validator::make($request->all(), [
       'name' => 'required',
       'units_per_package' => 'required'
     ]);
+
+    if ($validator->fails()) {
+      return $validator->errors();
+    }
 
     $package = Packages::findOrFail($id);
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateListsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('lists', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->string('name', 50);
-            $table->string('description')->nullable()->default(null);
-            $table->boolean('show_in_auto_list')->comment('show category in auto list when stock level is low');
+            $table->string('name', 50)->default('')->comment('list name');
 
+            $table->index(["id"], 'index_id');
             $table->index(["user_id"], 'index_user_id');
+
             $table->nullableTimestamps();
         });
     }
@@ -33,6 +33,8 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::table('lists', function (Blueprint $table) {
+            Schema::dropIfExists('lists');
+        });
     }
 }

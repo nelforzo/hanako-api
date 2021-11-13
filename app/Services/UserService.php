@@ -45,13 +45,17 @@ class UserService {
   public function updateUser(Request $request, $id) {
 
     //validation
-    $validated = $request->validate([
+    $validator = Validator::make($request->all(), [
       'first_name' => 'required',
       'last_name' => 'required',
       'first_name_kana' => 'required',
       'last_name_kana' => 'required',
       'mail_address' => 'required|email:rfc,dns|unique:users',
     ]);
+
+    if ($validator->fails()) {
+      return $validator->errors();
+    }
 
     $user = Users::findOrFail($id);
 
@@ -61,11 +65,15 @@ class UserService {
   public function changeUserPassword(Request $request, $id) {
 
     //validation
-    $validated = $request->validate([
+    $validator = Validator::make($request->all(), [
       'old_password' => 'required',
       'new_password' => 'required|same:new_password_confirmation',
       'new_password_confirmation' => 'required'
     ]);
+
+    if ($validator->fails()) {
+      return $validator->errors();
+    }
 
     $user = Users::find($id);
 
