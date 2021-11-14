@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 50);
             $table->string('first_name_kana', 50);
             $table->string('last_name_kana', 50);
+            $table->integer('gender')->nullable()->comment('1:male 2:female');
+            $table->date('birthday')->nullable();
             $table->string('mail_address');
             $table->string('password_hash', 100);
             $table->nullableTimestamps();

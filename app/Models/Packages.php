@@ -19,6 +19,7 @@ class Packages extends Model
         'barcode',
         'uuid',
         'units_per_package',
+        'units_left',
         'mililiters_per_package',
         'expiration_date',
         'opened_date',
