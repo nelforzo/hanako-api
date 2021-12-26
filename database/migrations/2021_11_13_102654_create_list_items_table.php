@@ -17,6 +17,7 @@ class CreateListItemsTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('list_id');
+            $table->integer('category_id')->nullable()->default(null);
             $table->string('name', 50)->default('')->comment('item name');
 
             $table->index(["id"], 'index_id');

@@ -24,7 +24,7 @@ class CreateRatingsTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('package_id')->nullable()->default(null);
-            $table->integer('rating')->nullable()->default(null)->comment('item rating from 0 to 10');
+            $table->integer('rating')->comment('item rating from 0 to 10');
             $table->string('comment', 100)->nullable()->default(null);
 
             $table->index(["package_id"], 'index_package_id');

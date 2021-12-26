@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\PackagesController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 //user controller routes
-Route::post('/users', [UserController::class, 'createUser']);
-Route::put('/users/{id}', [UserController::class, 'updateUser']);
-Route::put('/users/{id}/change_password', [UserController::class, 'changeUserPassword']);
-Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
+Route::post('/users', [UsersController::class, 'createUser']);
+Route::put('/users/{id}', [UsersController::class, 'updateUser']);
+Route::put('/users/{id}/change_password', [UsersController::class, 'changeUserPassword']);
+Route::delete('/users/{id}', [UsersController::class, 'deleteUser']);
 
 //packages controller routes
 Route::get('/packages', [PackagesController::class, 'getPackages']);

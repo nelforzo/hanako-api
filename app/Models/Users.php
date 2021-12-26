@@ -14,6 +14,8 @@ class Users extends Model
         'last_name',
         'first_name_kana',
         'last_name_kana',
+        'gender',
+        'birthday',
         'mail_address',
         'password_hash'
     ];
