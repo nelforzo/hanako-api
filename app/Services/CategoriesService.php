@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
-use App\Models\Users;
+use App\Models\Categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class UserService {
-  public function createUser(Request $request) {
+class CategoriesService {
+  public function createCategory(Request $request) {
 
     //validation
     $validator = Validator::make($request->all(), [
@@ -42,7 +42,7 @@ class UserService {
     return $user->id;
   }
 
-  public function updateUser(Request $request, $id) {
+  public function updateCategory(Request $request, $id) {
 
     //validation
     $validator = Validator::make($request->all(), [
@@ -62,36 +62,7 @@ class UserService {
     return $user->update($request->all());
   }
 
-  public function changeUserPassword(Request $request, $id) {
-
-    //validation
-    $validator = Validator::make($request->all(), [
-      'old_password' => 'required',
-      'new_password' => 'required|same:new_password_confirmation',
-      'new_password_confirmation' => 'required'
-    ]);
-
-    if ($validator->fails()) {
-      return $validator->errors();
-    }
-
-    $user = Users::find($id);
-
-    if ($user != null) {
-      if (Hash::check($request->input('old_password'), $user->password_hash)) {
-        if ($request->input('new_password') == $request->input('new_password_confirmation')) {
-          $user->password_hash = Hash::make($request->input('new_password'));
-          
-          return $user->save();
-        }
-        else return config('user_service.new_password_mismatch');
-      }
-      else return config('user_service.old_password_mismatch');
-    }
-    else return config('user_service.invalid_user');
-  }
-
-  public function deleteUser($id) {
+  public function deleteCategory($id) {
     return DB::table('users')->where('id', $id)->delete();
   }
 }
