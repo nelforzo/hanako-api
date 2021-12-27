@@ -79,7 +79,8 @@ class PackagesController extends Controller
     }
 
     public function deletePackage($id) {
-        return DB::table('packages')->where('id', $id)->delete();
+        $package = Packages::findOrFail($id);
+        $package->delete();
     }
 
     public function gen_uuid() {
