@@ -14,7 +14,7 @@ class PackagesController extends Controller
     public function getPackages(Request $request) {
         $packages = DB::table('packages')->where('user_id', $request->input('user_id'));
         if (!empty($request->input('category_id'))) {
-        $packages->where('category_id', $request->input('category_id'));
+            $packages->where('category_id', $request->input('category_id'));
         }
         return response()->json($packages->get());
     }
@@ -60,7 +60,7 @@ class PackagesController extends Controller
         return $package;
     }
 
-    public function updatePackage(Request $request, $id) {
+    public function updatePackage(Request $request, $uuid) {
         //validation
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -71,15 +71,14 @@ class PackagesController extends Controller
             return $validator->errors();
         }
     
-        $package = Packages::findOrFail($id);
-    
+        $package = Packages::where('uuid', $uuid)->where('user_id', $request->input('user_id'))->first();
         $package->update($request->all());
     
         return $package;
     }
 
-    public function deletePackage($id) {
-        $package = Packages::findOrFail($id);
+    public function deletePackage(Request $request, $uuid) {
+        $package = Packages::where('uuid', $uuid)->where('user_id', $request->input('user_id'))->first();
         $package->delete();
     }
 

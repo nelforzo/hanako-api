@@ -14,6 +14,7 @@ class CategoriesController extends Controller
   public function createCategory(Request $request) {
     //validation
     $validator = Validator::make($request->all(), [
+      'user_id' => 'required|integer',
       'name' => 'required',
       'description' => 'required',
     ]);
@@ -24,6 +25,7 @@ class CategoriesController extends Controller
 
     $category = new Categories();
 
+    $category->user_id = $request->input('user_id');
     $category->name = $request->input('name');
     $category->description = $request->input('description');
     $category->save();
@@ -51,7 +53,7 @@ class CategoriesController extends Controller
     return $category->id;
   }
 
-  public function getCategories($user_id) {
+  public function getCategories(Request $request, $user_id) {
     $categories = Categories::where('user_id', $user_id)->get();
     return $categories;
   }

@@ -42,7 +42,7 @@ class UsersController extends Controller
         return $user->id;
     }
 
-    public function updateUser(Request $request, $id) {
+    public function updateUser(Request $request, $user_id) {
         //validation
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
@@ -56,12 +56,12 @@ class UsersController extends Controller
             return $validator->errors();
         }
     
-        $user = Users::findOrFail($id);
+        $user = Users::findOrFail($user_id);
     
         return $user->update($request->all());
     }
 
-    public function changePassword(Request $request, $id) {
+    public function changePassword(Request $request, $user_id) {
         //validation
         $validator = Validator::make($request->all(), [
             'old_password' => 'required',
@@ -73,7 +73,7 @@ class UsersController extends Controller
             return $validator->errors();
         }
     
-        $user = Users::find($id);
+        $user = Users::find($user_id);
     
         if ($user != null) {
             if (Hash::check($request->input('old_password'), $user->password_hash)) {
@@ -89,7 +89,7 @@ class UsersController extends Controller
         else return config('user_service.invalid_user');
     }
 
-    public function delete($id) {
-        return DB::table('users')->where('id', $id)->delete();
+    public function delete($user_id) {
+        return DB::table('users')->where('id', $user_id)->delete();
     }
 }
