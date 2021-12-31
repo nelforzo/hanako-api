@@ -20,6 +20,7 @@ class Packages extends Model
         'uuid',
         'units_per_package',
         'units_left',
+        'grams_per_package',
         'mililiters_per_package',
         'expiration_date',
         'opened_date',

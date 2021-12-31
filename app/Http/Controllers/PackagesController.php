@@ -32,7 +32,9 @@ class PackagesController extends Controller
             'user_id' => 'required',
             'stuff_id' => 'required',
             'name' => 'required',
-            'units_per_package' => 'required'
+            'units_per_package' => 'required_without_all:grams_per_package,mililiters_per_package',
+            'grams_per_package' => 'required_without_all:units_per_package,mililiters_per_package',
+            'mililiters_per_package' => 'required_without_all:units_per_package,grams_per_package',
         ]);
     
         if ($validator->fails()) {
@@ -50,6 +52,7 @@ class PackagesController extends Controller
         $package->barcode = $request->input('barcode');
         $package->uuid = $this->gen_uuid();
         $package->units_per_package = $request->input('units_per_package');
+        $package->grams_per_package = $request->input('grams_per_package');
         $package->mililiters_per_package = $request->input('mililiters_per_package');
         $package->expiration_date = $request->input('expiration_date');
         $package->opened_date = $request->input('opened_date');

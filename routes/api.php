@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\StuffController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
@@ -21,11 +21,11 @@ Route::post('/users', [UsersController::class, 'createUser']);
 Route::put('/users/{user_id}', [UsersController::class, 'updateUser']);
 Route::put('/users/{user_id}/change_password', [UsersController::class, 'changeUserPassword']);
 Route::delete('/users/{user_id}', [UsersController::class, 'deleteUser']);
-Route::get('/users/{user_id}/categories', [categoriesController::class, 'getCategories']);
+Route::get('/users/{user_id}/stuff', [StuffController::class, 'getStuff']);
 
-Route::post('/categories', [categoriesController::class, 'createCategory']);
-Route::put('/categories/{id}', [categoriesController::class, 'updateCategory']);
-Route::delete('/categories/{id}', [categoriesController::class, 'deleteCategory']);
+Route::post('/stuff', [StuffController::class, 'createStuff']);
+Route::put('/stuff/{id}', [StuffController::class, 'updateStuff']);
+Route::delete('/stuff/{id}', [StuffController::class, 'deleteStuff']);
 
 Route::get('/packages', [PackagesController::class, 'getPackages']);
 Route::post('/packages/{uuid}', [PackagesController::class, 'getPackageByUUID']);

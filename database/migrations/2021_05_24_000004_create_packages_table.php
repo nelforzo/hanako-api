@@ -31,8 +31,9 @@ class CreatePackagesTable extends Migration
             $table->string('comment', 100)->nullable()->default(null);
             $table->string('barcode', 50)->nullable()->default(null);
             $table->string('uuid', 50)->default('')->comment('the system unique identifier used for qr code urls');
-            $table->integer('units_per_package');
+            $table->integer('units_per_package')->nullable();
             $table->integer('units_left')->nullable()->comment('units left in package');
+            $table->integer('grams_per_package')->nullable()->default(null);
             $table->integer('mililiters_per_package')->nullable()->default(null);
             $table->timestamp('expiration_date')->nullable()->default(null)->comment('the item\'s expiration date when unopened');
             $table->timestamp('opened_date')->nullable()->default(null)->comment('the item\'s opened date');
