@@ -32,7 +32,7 @@ class StuffController extends Controller
         return $stuff->id;
       }
     
-      public function updateStuff(Request $request) {
+      public function updateStuff(Request $request, $stuff_id) {
         //validation
         $validator = Validator::make($request->all(), [
           'name' => 'required',
@@ -43,7 +43,7 @@ class StuffController extends Controller
           return $validator->errors();
         }
     
-        $stuff = Stuff::findOrFail($request->input('id'));
+        $stuff = Stuff::findOrFail($stuff_id);
     
         $stuff->name = $request->input('name');
         $stuff->description = $request->input('description');
@@ -52,13 +52,13 @@ class StuffController extends Controller
         return $stuff->id;
       }
     
-      public function getStuff(Request $request, $user_id) {
+      public function getStuff($user_id) {
         $stuff = Stuff::where('user_id', $user_id)->get();
         return $stuff;
       }
     
-      public function deleteStuff($id) {
-        $stuff = Stuff::findOrFail($id);
+      public function deleteStuff($stuff_id) {
+        $stuff = Stuff::findOrFail($stuff_id);
         $stuff->delete();
       }
 }

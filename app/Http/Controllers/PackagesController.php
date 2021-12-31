@@ -11,18 +11,18 @@ use Illuminate\Support\Facades\Validator;
 
 class PackagesController extends Controller
 {
-    public function getPackages(Request $request) {
-        $packages = DB::table('packages')->where('user_id', $request->input('user_id'));
-        if (!empty($request->input('stuff_id'))) {
-            $packages->where('stuff_id', $request->input('stuff_id'));
+    public function getPackages($user_id, $stuff_id) {
+        $packages = DB::table('packages')->where('user_id', $user_id);
+        if (!empty($stuff_id)) {
+            $packages->where('stuff_id', $stuff_id);
         }
         return response()->json($packages->get());
     }
 
-    public function getPackageByUUID(Request $request, $uuid) {
+    public function getPackageByUUID($user_id, $uuid) {
         $package = DB::table('packages')
         ->where('uuid', $uuid)
-        ->where('user_id', $request->input('user_id'))->first();
+        ->where('user_id', $user_id)->first();
         return response()->json($package);
     }
 

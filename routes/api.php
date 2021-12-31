@@ -24,11 +24,11 @@ Route::delete('/users/{user_id}', [UsersController::class, 'deleteUser']);
 Route::get('/users/{user_id}/stuff', [StuffController::class, 'getStuff']);
 
 Route::post('/stuff', [StuffController::class, 'createStuff']);
-Route::put('/stuff/{id}', [StuffController::class, 'updateStuff']);
-Route::delete('/stuff/{id}', [StuffController::class, 'deleteStuff']);
+Route::put('/stuff/{stuff_id}', [StuffController::class, 'updateStuff']);
+Route::delete('/stuff/{stuff_id}', [StuffController::class, 'deleteStuff']);
 
-Route::get('/packages', [PackagesController::class, 'getPackages']);
-Route::post('/packages/{uuid}', [PackagesController::class, 'getPackageByUUID']);
+Route::get('/users/{user_id}/stuff/{stuff_id}', [PackagesController::class, 'getPackages']);
+Route::get('/users/{user_id}/packages/{uuid}', [PackagesController::class, 'getPackageByUUID']);
 Route::post('/packages', [PackagesController::class, 'createPackage']);
 Route::put('/packages/{uuid}', [PackagesController::class, 'updatePackage']);
 Route::delete('/packages/{uuid}', [PackagesController::class, 'deletePackage']);
