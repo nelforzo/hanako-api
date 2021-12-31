@@ -15,7 +15,7 @@ class RatingsController extends Controller
         //validation
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
-            'category_id' => 'required',
+            'stuff_id' => 'required',
             'rating' => 'required',
         ]);
 
@@ -26,7 +26,7 @@ class RatingsController extends Controller
         $rating = new Ratings();
 
         $rating->user_id = $request->input('user_id');
-        $rating->category_id = $request->input('category_id');
+        $rating->stuff_id = $request->input('stuff_id');
         $rating->rating = $request->input('rating');
         $rating->save();
 
@@ -38,7 +38,7 @@ class RatingsController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required',
             'user_id' => 'required',
-            'category_id' => 'required',
+            'stuff_id' => 'required',
             'rating' => 'required',
         ]);
 
@@ -49,7 +49,7 @@ class RatingsController extends Controller
         $rating = Ratings::find($request->input('id'));
 
         $rating->user_id = $request->input('user_id');
-        $rating->category_id = $request->input('category_id');
+        $rating->stuff_id = $request->input('stuff_id');
         $rating->rating = $request->input('rating');
         $rating->save();
 

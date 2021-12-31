@@ -13,8 +13,8 @@ class PackagesController extends Controller
 {
     public function getPackages(Request $request) {
         $packages = DB::table('packages')->where('user_id', $request->input('user_id'));
-        if (!empty($request->input('category_id'))) {
-            $packages->where('category_id', $request->input('category_id'));
+        if (!empty($request->input('stuff_id'))) {
+            $packages->where('stuff_id', $request->input('stuff_id'));
         }
         return response()->json($packages->get());
     }
@@ -30,7 +30,7 @@ class PackagesController extends Controller
         //validation
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
-            'category_id' => 'required',
+            'stuff_id' => 'required',
             'name' => 'required',
             'units_per_package' => 'required'
         ]);
@@ -42,7 +42,7 @@ class PackagesController extends Controller
         $package = new Packages();
     
         $package->user_id = $request->input('user_id');
-        $package->category_id = $request->input('category_id');
+        $package->stuff_id = $request->input('stuff_id');
         $package->name = $request->input('name');
         $package->description = $request->input('description');
         $package->brand = $request->input('brand');
