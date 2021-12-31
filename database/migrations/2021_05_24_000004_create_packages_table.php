@@ -24,7 +24,7 @@ class CreatePackagesTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->integer('category_id');
+            $table->integer('stuff_id');
             $table->string('name', 50);
             $table->string('description')->nullable()->default(null);
             $table->string('brand', 50)->nullable()->default(null);
@@ -40,7 +40,7 @@ class CreatePackagesTable extends Migration
 
             $table->index(["id"], 'index_id');
             $table->index(["user_id"], 'index_user_id');
-            $table->index(["category_id"], 'index_category_id');
+            $table->index(["stuff_id"], 'index_stuff_id');
             $table->nullableTimestamps();
         });
     }

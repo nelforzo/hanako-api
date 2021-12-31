@@ -24,12 +24,12 @@ class CreateTagsTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->integer('category_id');
+            $table->integer('stuff_id');
             $table->string('body', 50)->default('')->comment('tag string');
 
             $table->index(["user_id"], 'index_user_id');
 
-            $table->index(["category_id"], 'index_category_id');
+            $table->index(["stuff_id"], 'index_stuff_id');
             $table->nullableTimestamps();
         });
     }

@@ -25,11 +25,11 @@ class CreateLogsTable extends Migration
             $table->bigIncrements('id');
             $table->string('operation', 50)->default('');
             $table->integer('user_id');
-            $table->integer('category_id');
+            $table->integer('stuff_id');
             $table->integer('package_id')->nullable();
 
             $table->index(["user_id"], 'index_user_id');
-            $table->index(["category_id"], 'index_category_id');
+            $table->index(["stuff_id"], 'index_stuff_id');
             $table->index(["package_id"], 'index_package_id');
             $table->nullableTimestamps();
         });
