@@ -24,12 +24,12 @@ class CreateStockAlertsTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->integer('category_id');
+            $table->integer('stuff_id');
             $table->integer('minimum_stock_units');
             $table->string('comment', 100)->nullable()->default(null);
 
             $table->index(["id"], 'index_id');
-            $table->index(["category_id"], 'index_category_id');
+            $table->index(["stuff_id"], 'index_stuff_id');
             $table->nullableTimestamps();
         });
     }

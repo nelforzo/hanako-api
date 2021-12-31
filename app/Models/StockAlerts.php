@@ -11,7 +11,7 @@ class StockAlerts extends Model
 
     protected $fillable = [
         'user_id',
-        'category_id',
+        'stuff_id',
         'minimum_stock_units',
         'comment'
     ];

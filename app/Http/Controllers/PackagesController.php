@@ -11,18 +11,18 @@ use Illuminate\Support\Facades\Validator;
 
 class PackagesController extends Controller
 {
-    public function getPackages(Request $request) {
-        $packages = DB::table('packages')->where('user_id', $request->input('user_id'));
-        if (!empty($request->input('category_id'))) {
-        $packages->where('category_id', $request->input('category_id'));
+    public function getPackages($user_id, $stuff_id) {
+        $packages = DB::table('packages')->where('user_id', $user_id);
+        if (!empty($stuff_id)) {
+            $packages->where('stuff_id', $stuff_id);
         }
         return response()->json($packages->get());
     }
 
-    public function getPackageByUUID(Request $request, $uuid) {
+    public function getPackageByUUID($user_id, $uuid) {
         $package = DB::table('packages')
         ->where('uuid', $uuid)
-        ->where('user_id', $request->input('user_id'))->first();
+        ->where('user_id', $user_id)->first();
         return response()->json($package);
     }
 
@@ -30,9 +30,11 @@ class PackagesController extends Controller
         //validation
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
-            'category_id' => 'required',
+            'stuff_id' => 'required',
             'name' => 'required',
-            'units_per_package' => 'required'
+            'units_per_package' => 'required_without_all:grams_per_package,mililiters_per_package',
+            'grams_per_package' => 'required_without_all:units_per_package,mililiters_per_package',
+            'mililiters_per_package' => 'required_without_all:units_per_package,grams_per_package',
         ]);
     
         if ($validator->fails()) {
@@ -42,7 +44,7 @@ class PackagesController extends Controller
         $package = new Packages();
     
         $package->user_id = $request->input('user_id');
-        $package->category_id = $request->input('category_id');
+        $package->stuff_id = $request->input('stuff_id');
         $package->name = $request->input('name');
         $package->description = $request->input('description');
         $package->brand = $request->input('brand');
@@ -50,6 +52,7 @@ class PackagesController extends Controller
         $package->barcode = $request->input('barcode');
         $package->uuid = $this->gen_uuid();
         $package->units_per_package = $request->input('units_per_package');
+        $package->grams_per_package = $request->input('grams_per_package');
         $package->mililiters_per_package = $request->input('mililiters_per_package');
         $package->expiration_date = $request->input('expiration_date');
         $package->opened_date = $request->input('opened_date');
@@ -60,7 +63,7 @@ class PackagesController extends Controller
         return $package;
     }
 
-    public function updatePackage(Request $request, $id) {
+    public function updatePackage(Request $request, $uuid) {
         //validation
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -71,15 +74,15 @@ class PackagesController extends Controller
             return $validator->errors();
         }
     
-        $package = Packages::findOrFail($id);
-    
+        $package = Packages::where('uuid', $uuid)->where('user_id', $request->input('user_id'))->first();
         $package->update($request->all());
     
         return $package;
     }
 
-    public function deletePackage($id) {
-        return DB::table('packages')->where('id', $id)->delete();
+    public function deletePackage(Request $request, $uuid) {
+        $package = Packages::where('uuid', $uuid)->where('user_id', $request->input('user_id'))->first();
+        $package->delete();
     }
 
     public function gen_uuid() {
