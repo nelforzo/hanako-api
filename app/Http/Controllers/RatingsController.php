@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RatingsController extends Controller
 {
+    // TODO this controller is not used yet
     public function createRating(Request $request) {
         //validation
         $validator = Validator::make($request->all(), [
@@ -58,6 +59,6 @@ class RatingsController extends Controller
 
     public function deleteRating($id) {
         $rating = Ratings::find($id);
-        $rating->delete();
+        return $rating->delete();
     }
 }
