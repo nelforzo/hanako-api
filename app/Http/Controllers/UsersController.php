@@ -39,7 +39,7 @@ class UsersController extends Controller
         }
         $user->save();
         
-        return $user->id;
+        return $user;
     }
 
     public function updateUser(Request $request, $user_id) {
@@ -57,8 +57,9 @@ class UsersController extends Controller
         }
     
         $user = Users::findOrFail($user_id);
+        $user->update($request->all());
     
-        return $user->update($request->all());
+        return $user;
     }
 
     public function changePassword(Request $request, $user_id) {
@@ -90,6 +91,7 @@ class UsersController extends Controller
     }
 
     public function delete($user_id) {
-        return DB::table('users')->where('id', $user_id)->delete();
+        $user = Users::findOrFail($user_id);
+        return $user->delete();
     }
 }

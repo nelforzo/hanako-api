@@ -29,7 +29,7 @@ class StuffController extends Controller
         $stuff->description = $request->input('description');
         $stuff->save();
     
-        return $stuff->id;
+        return $stuff;
       }
     
       public function updateStuff(Request $request, $stuff_id) {
@@ -44,12 +44,9 @@ class StuffController extends Controller
         }
     
         $stuff = Stuff::findOrFail($stuff_id);
-    
-        $stuff->name = $request->input('name');
-        $stuff->description = $request->input('description');
-        $stuff->save();
-    
-        return $stuff->id;
+        $stuff->update($request->all());
+        
+        return $stuff;
       }
     
       public function getStuff($user_id) {
@@ -59,6 +56,6 @@ class StuffController extends Controller
     
       public function deleteStuff($stuff_id) {
         $stuff = Stuff::findOrFail($stuff_id);
-        $stuff->delete();
+        return $stuff->delete();
       }
 }

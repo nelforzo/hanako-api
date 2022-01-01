@@ -12,22 +12,20 @@ use Illuminate\Support\Facades\Validator;
 class PackagesController extends Controller
 {
     public function getPackages($user_id, $stuff_id) {
-        $packages = DB::table('packages')->where('user_id', $user_id);
-        if (!empty($stuff_id)) {
-            $packages->where('stuff_id', $stuff_id);
-        }
-        return response()->json($packages->get());
+        $packages = DB::table('packages')->where('user_id', $user_id)->where('stuff_id', $stuff_id)->get();
+        return $packages;
     }
 
     public function getPackageByUUID($user_id, $uuid) {
-        $package = DB::table('packages')
-        ->where('uuid', $uuid)
-        ->where('user_id', $user_id)->first();
-        return response()->json($package);
+        $package = DB::table('packages')->where('user_id', $user_id)->where('uuid', $uuid)->first();
+        return $package;
     }
 
-    public function createPackage(Request $request) {
-        //validation
+    public function createPackage(Request $request, $user_id) {
+        //add user_id to request
+        $request->merge(['user_id' => $user_id]);
+        
+        //validate request
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
             'stuff_id' => 'required',
@@ -43,7 +41,7 @@ class PackagesController extends Controller
     
         $package = new Packages();
     
-        $package->user_id = $request->input('user_id');
+        $package->user_id = $user_id;
         $package->stuff_id = $request->input('stuff_id');
         $package->name = $request->input('name');
         $package->description = $request->input('description');
@@ -63,7 +61,7 @@ class PackagesController extends Controller
         return $package;
     }
 
-    public function updatePackage(Request $request, $uuid) {
+    public function updatePackage(Request $request, $user_id, $uuid) {
         //validation
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -74,15 +72,15 @@ class PackagesController extends Controller
             return $validator->errors();
         }
     
-        $package = Packages::where('uuid', $uuid)->where('user_id', $request->input('user_id'))->first();
+        $package = Packages::where('user_id', $user_id)->where('uuid', $uuid)->first();
         $package->update($request->all());
     
         return $package;
     }
 
-    public function deletePackage(Request $request, $uuid) {
-        $package = Packages::where('uuid', $uuid)->where('user_id', $request->input('user_id'))->first();
-        $package->delete();
+    public function deletePackage($user_id, $uuid) {
+        $package = Packages::where('user_id', $user_id)->where('uuid', $uuid)->first();
+        return $package->delete();
     }
 
     public function gen_uuid() {
