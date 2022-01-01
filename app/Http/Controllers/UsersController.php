@@ -39,7 +39,7 @@ class UsersController extends Controller
         }
         $user->save();
         
-        return $user;
+        return $user->id;
     }
 
     public function updateUser(Request $request, $user_id) {
