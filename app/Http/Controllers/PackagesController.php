@@ -64,8 +64,7 @@ class PackagesController extends Controller
     public function updatePackage(Request $request, $user_id, $uuid) {
         //validation
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'units_per_package' => 'required'
+            'name' => 'required'
         ]);
     
         if ($validator->fails()) {
