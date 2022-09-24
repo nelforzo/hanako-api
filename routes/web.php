@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return 'this is the web root for hanako-api. the stuff you\'re looking for is under /api. go have fun.';
 });
+
+Route::get('/users/new', 'UsersController@showNewUser');
+Route::post('/users/new', 'UsersController@createUser');

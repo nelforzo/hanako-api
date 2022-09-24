@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
+    public function showNewUser() {
+        return view('users.new');
+    }
+
     public function createUser(Request $request) {
         //validation
         $validator = Validator::make($request->all(), [
