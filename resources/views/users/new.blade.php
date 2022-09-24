@@ -7,6 +7,16 @@
   <title>new user</title>
 </head>
 <body>
-  
+  <form action="" method="POST">
+    @csrf
+    first name <input type="text" name="first_name"><br>
+    last name <input type="text" name="last_name"><br>
+    first name (kana) <input type="text" name="first_name_kana"><br>
+    last name (kana) <input type="text" name="last_name_kana"><br>
+    mail address <input type="text" name="mail_address"><br>
+    password <input type="password" name="password"><br>
+    password (confirmation) <input type="password" name="password_confirmation"><br>
+    <input type="submit" value="create">
+  </form>
 </body>
 </html>

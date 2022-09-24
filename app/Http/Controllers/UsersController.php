@@ -20,8 +20,6 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
-            'first_name_kana' => 'required',
-            'last_name_kana' => 'required',
             'mail_address' => 'required|email:rfc,dns|unique:users',
             'password' => 'required|same:password_confirmation',
             'password_confirmation' => 'required'
@@ -43,7 +41,7 @@ class UsersController extends Controller
         }
         $user->save();
         
-        return $user->id;
+        return view('users.complete');
     }
 
     public function updateUser(Request $request, $user_id) {
